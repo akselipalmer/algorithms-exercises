@@ -13,23 +13,21 @@
   And you put xdescribe instead of describe if you want to suspend running the unit tests.  
 */
 
-function reorder(previousIndex, currentIndex, array) {
-  if (array[currentIndex] < array[previousIndex]) {
-    const newArray = [...array];
-    newArray[currentIndex] = array[previousIndex];
-    newArray[previousIndex] = array[currentIndex];
-    return reorder(previousIndex - 1, previousIndex, newArray);
+function insertionSort(nums) {
+  for (let i = 1; i < nums.length; i++) {
+    let previousIndex = i - 1;
+    let currentIndex = i;
+    do {
+      const newArray = [...nums];
+      newArray[currentIndex] = nums[previousIndex];
+      newArray[previousIndex] = nums[currentIndex];
+      nums = newArray;
+      previousIndex = previousIndex - 1;
+      currentIndex = currentIndex - 1;
+      console.log(nums);
+    } while (nums[currentIndex] < nums[previousIndex]);
   }
-  return array;
-}
-
-function insertionSort(array) {
-  for (let i = 1; i < array.length; i++) {
-    const previousIndex = i - 1;
-    const currentIndex = i;
-    array = reorder(previousIndex, currentIndex, array);
-  }
-  return array;
+  return nums;
 }
 
 // unit tests
