@@ -9,11 +9,26 @@
  
  */
 
-function nestedAdd(array) {
-  // write code here
+function addItems(array, location, total) {
+  if (location === array.length) {
+    return total;
+  }
+  if (typeof array[location] !== "number") {
+    const newTotal = total + addItems(array[location], 0, 0);
+    const newLocation = location + 1;
+    return addItems(array, newLocation, newTotal);
+  }
+  const newTotal = total + array[location];
+  const newLocation = location + 1;
+  return addItems(array, newLocation, newTotal);
 }
 
-test.skip("nested arrays addition", () => {
+function nestedAdd(array) {
+  // write code here
+  return addItems(array, 0, 0);
+}
+
+test("nested arrays addition", () => {
   expect(nestedAdd([1, 2, 3])).toEqual(6);
   expect(nestedAdd([1, [2], 3])).toEqual(6);
   expect(nestedAdd([[[[[[[[[5]]]]]]]]])).toEqual(5);
