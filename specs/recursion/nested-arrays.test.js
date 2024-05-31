@@ -9,23 +9,16 @@
  
  */
 
-function addItems(array, location, total) {
-  if (location === array.length) {
-    return total;
-  }
-  if (typeof array[location] !== "number") {
-    const newTotal = total + addItems(array[location], 0, 0);
-    const newLocation = location + 1;
-    return addItems(array, newLocation, newTotal);
-  }
-  const newTotal = total + array[location];
-  const newLocation = location + 1;
-  return addItems(array, newLocation, newTotal);
-}
-
 function nestedAdd(array) {
   // write code here
-  return addItems(array, 0, 0);
+  let total = 0;
+  for (let i = 0; i < array.length; i++) {
+    if (typeof array[i] === "number") {
+      total = total + array[i];
+    }
+    total = total + nestedAdd(array[i]);
+  }
+  return total;
 }
 
 test("nested arrays addition", () => {
