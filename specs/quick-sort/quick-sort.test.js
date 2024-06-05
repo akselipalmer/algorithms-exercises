@@ -13,12 +13,38 @@
 */
 
 function quickSort(nums) {
-  // code goes here
+  // base case. Array is of length 0 or 1
+  if (nums.length < 2) {
+    // returns the nums
+    return nums;
+  }
+
+  // defines the pivot as the last item in the nums
+  const pivot = nums.pop();
+
+  if (pivot === undefined) {
+    return nums;
+  }
+  // create 2 arrays
+  const lessThanArray = [];
+  const greaterThanArray = [];
+  for (let i = 0; i < nums.length; i++) {
+    if (nums[i] < pivot) {
+      // less than array (anything less than the pivot)
+      lessThanArray.push(nums[i]);
+    } else {
+      // greater than array (anything greater than or equal to the pivot)
+      greaterThanArray.push(nums[i]);
+    }
+  }
+  // concatenates the arrays with the pivot between
+
+  return quickSort(lessThanArray).concat([pivot], quickSort(greaterThanArray));
 }
 
 // unit tests
 // do not modify the below code
-test.skip("quickSort", function () {
+test("quickSort", function () {
   const input = [10, 8, 2, 1, 6, 3, 9, 4, 7, 5];
   const answer = quickSort(input);
 
